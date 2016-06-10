@@ -15,6 +15,7 @@
         <asp:CheckBox ID="isTlt" runat="server" Text="Тольятти" /><asp:CheckBox ID="isProseka" runat="server" Text="7 просека" /><asp:CheckBox ID="isRaduga" runat="server" Text="Радужный элит" />
         <br />
         <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+        <asp:Button ID="Button4" runat="server" OnClick="Button4_Click" Text="Button" />
     </div>
     </form>
 </body>

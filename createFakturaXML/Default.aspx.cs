@@ -4,6 +4,8 @@ using System.IO;
 using System.Text;
 using System.Diagnostics;
 using System.Xml;
+using System.Net;
+using System.Web;
 
 namespace createFakturaXML
 {
@@ -530,9 +532,9 @@ namespace createFakturaXML
                                         myXml.WriteEndElement();
                                         myXml.WriteStartElement("ОбъемКоммунальныхУслуг");
                                         myXml.WriteElementString("ПомещенияДома",
-                                            Convert.ToString(wb.Worksheet(1).Row(r).Cell(54).Value).Trim());
+                                            Convert.ToString(wb.Worksheet(1).Row(r).Cell(55).Value).Trim());
                                         myXml.WriteElementString("ОбщедомовыеНуждыДома",
-                                            Convert.ToString(wb.Worksheet(1).Row(r).Cell(56).Value).Trim());
+                                            Convert.ToString(wb.Worksheet(1).Row(r).Cell(57).Value).Trim());
                                         myXml.WriteEndElement();
                                         myXml.WriteEndElement();
                                     }
@@ -595,7 +597,7 @@ namespace createFakturaXML
 
                                 #region Примечание
 
-                                string t1 = Convert.ToString(wb.Worksheet(1).Row(i + 59).Cell(1).Value).Trim();
+                                string t1 = Convert.ToString(wb.Worksheet(1).Row(i + 60).Cell(1).Value).Trim();
                                 myXml.WriteElementString("Примечание", t1);
 
                                 #endregion Прмечание
@@ -648,7 +650,7 @@ namespace createFakturaXML
                                         Convert.ToString(wb.Worksheet(1).Row(i + 3).Cell(1).Value)
                                             .Trim()
                                             .Split(separator2, StringSplitOptions.None)[1].Trim().
-                                            Split(separator3, StringSplitOptions.None)[0]);
+                                            Split(separator31, StringSplitOptions.None)[0]);
 
                                     myXml.WriteElementString("ПлощадьПомещения",
                                         Convert.ToString(wb.Worksheet(1).Row(i + 3).Cell(1).Value)
@@ -875,9 +877,9 @@ namespace createFakturaXML
                         }
                         else
                         {
-                            for (int i = 1; i <= 40000; i = i + 74)
+                            for (int i = 1; i <= 40000; i = i + 71)
                             {
-                                if (Convert.ToString(wb.Worksheet(1).Row(i).Cell(9).Value).Contains("ПЛАТЕЖНЫЙ ДОКУМЕНТ (СЧЕТ)"))
+                                if (Convert.ToString(wb.Worksheet(1).Row(i).Cell(8).Value).Contains("ПЛАТЕЖНЫЙ ДОКУМЕНТ (СЧЕТ)"))
                                 {
                                     if (i != 1)
                                         myXml.WriteEndElement();
@@ -897,41 +899,41 @@ namespace createFakturaXML
                                     myXml.WriteElementString("ФИО", Convert.ToString(wb.Worksheet(1).Row(i + 7).Cell(1).Value).Trim().Split(separator1, StringSplitOptions.None)[1]
                                         .Split(separator2, StringSplitOptions.None)[0].Trim());
                                     myXml.WriteElementString("АдресПомещения", Convert.ToString(wb.Worksheet(1).Row(i + 7).Cell(1).Value).Trim().Split(separator2, StringSplitOptions.None)[1].Trim().
-                                        Split(separator31, StringSplitOptions.None)[0]);
+                                        Split(separator3, StringSplitOptions.None)[0]);
 
-                                    myXml.WriteElementString("ПлощадьПомещения", Convert.ToString(wb.Worksheet(1).Row(i + 7).Cell(1).Value).Split(separator31, StringSplitOptions.None)[1]
+                                    myXml.WriteElementString("ПлощадьПомещения", Convert.ToString(wb.Worksheet(1).Row(i + 7).Cell(1).Value).Split(separator3, StringSplitOptions.None)[1]
                                         .Split(separatorM, StringSplitOptions.None)[0].Trim());
                                     myXml.WriteElementString("ПрописаноПроживает", Convert.ToString(wb.Worksheet(1).Row(i + 7).Cell(1).Value).Split(separator41, StringSplitOptions.None)[1]
                                         .Split(separatorP, StringSplitOptions.None)[0].Trim());
-                                    myXml.WriteElementString("ПлощадьДома", Convert.ToString(wb.Worksheet(1).Row(i + 7).Cell(1).Value).Split(separator51, StringSplitOptions.None)[1]
+                                    myXml.WriteElementString("ПлощадьДома", Convert.ToString(wb.Worksheet(1).Row(i + 7).Cell(1).Value).Split(separator5, StringSplitOptions.None)[1]
                                         .Split(separatorM, StringSplitOptions.None)[0].Trim());
                                     myXml.WriteElementString("ПлощадьМОП", Convert.ToString(wb.Worksheet(1).Row(i + 7).Cell(1).Value).Split(separator6, StringSplitOptions.None)[1]
                                         .Split(separatorM, StringSplitOptions.None)[0].Trim());
                                     myXml.WriteElementString("Проживает", Convert.ToString(wb.Worksheet(1).Row(i + 7).Cell(1).Value).Split(separator71, StringSplitOptions.None)[1]
                                         .Split(separatorP, StringSplitOptions.None)[0].Trim());
-                                    myXml.WriteElementString("Организация", Convert.ToString(wb.Worksheet(1).Row(i + 11).Cell(1).Value).Split(separator8, StringSplitOptions.None)[1].Trim());
+                                    myXml.WriteElementString("Организация", Convert.ToString(wb.Worksheet(1).Row(i + 9).Cell(1).Value).Split(separator8, StringSplitOptions.None)[1].Trim());
                                     myXml.WriteEndElement();
                                     #endregion Рвздел1
 
                                     #region Раздел2
                                     myXml.WriteStartElement("Раздел2");
-                                    string paymentTo = Convert.ToString(wb.Worksheet(1).Row(i + 8).Cell(21).Value).Trim();
+                                    string paymentTo = Convert.ToString(wb.Worksheet(1).Row(i + 8).Cell(20).Value).Trim();
                                     myXml.WriteElementString("ПолучательПлатежа", paymentTo);
-                                    string bankInfo = Convert.ToString(wb.Worksheet(1).Row(i + 8).Cell(28).Value).Trim();
+                                    string bankInfo = Convert.ToString(wb.Worksheet(1).Row(i + 8).Cell(26).Value).Trim();
                                     myXml.WriteElementString("БанковскийСчет", bankInfo.Trim());
 
-                                    myXml.WriteElementString("ПлатежныйКод", Convert.ToString(wb.Worksheet(1).Row(i + 8).Cell(43).Value).Trim().Replace('*', ' ').Trim());
+                                    myXml.WriteElementString("ПлатежныйКод", Convert.ToString(wb.Worksheet(1).Row(i + 8).Cell(37).Value).Trim().Replace('*', ' ').Trim());
 
-                                    myXml.WriteElementString("ВидПлаты", Convert.ToString(wb.Worksheet(1).Row(i + 8).Cell(53).Value).Trim().Replace("(ООО «УК «Ассоциация Управляющих Компаний»)", " ").Trim());
+                                    myXml.WriteElementString("ВидПлаты", Convert.ToString(wb.Worksheet(1).Row(i + 8).Cell(45).Value).Trim().Replace("(ООО «УК «Ассоциация Управляющих Компаний»)", " ").Trim());
 
-                                    myXml.WriteElementString("СуммаКОплате", Convert.ToString(wb.Worksheet(1).Row(i + 8).Cell(60).Value).Trim());
+                                    myXml.WriteElementString("СуммаКОплате", Convert.ToString(wb.Worksheet(1).Row(i + 8).Cell(51).Value).Trim());
 
                                     myXml.WriteEndElement();
                                     #endregion Рвздел2
 
                                     #region Раздел3
                                     myXml.WriteStartElement("Раздел3");
-                                    for (int t = i + 21; t <= i + 45; t++)
+                                    for (int t = i + 22; t <= i + 49; t++)
                                     {
                                         if (wb.Worksheet(1).Row(t).Cell(1).Value != null && Convert.ToString(wb.Worksheet(1).Row(t).Cell(1).Value).Trim() != "")
                                         {
@@ -940,43 +942,48 @@ namespace createFakturaXML
                                             myXml.WriteElementString("ЕдиницаИзмерения", Convert.ToString(wb.Worksheet(1).Row(t).Cell(5).Value).Trim());
                                             myXml.WriteStartElement("ОбъемКоммунальныхУслуг");
                                             myXml.WriteElementString("ИндивидуальноеПотребление", Convert.ToString(wb.Worksheet(1).Row(t).Cell(7).Value).Trim());
-                                            myXml.WriteElementString("ОбщедомовыеНужды", Convert.ToString(wb.Worksheet(1).Row(t).Cell(8).Value).Trim());
+                                            myXml.WriteElementString("ОбщедомовыеНужды", Convert.ToString(wb.Worksheet(1).Row(t).Cell(9).Value).Trim());
                                             myXml.WriteEndElement();
                                             myXml.WriteElementString("Тариф", Convert.ToString(wb.Worksheet(1).Row(t).Cell(11).Value).Trim());
                                             myXml.WriteStartElement("РазмерПлатыЗаКоммунальныеУслуги");
-                                            myXml.WriteElementString("ИндивидуальноеПотребление", Convert.ToString(wb.Worksheet(1).Row(t).Cell(12).Value).Trim());
-                                            myXml.WriteElementString("ОбщедомовыеНужды", Convert.ToString(wb.Worksheet(1).Row(t).Cell(15).Value).Trim());
+                                            myXml.WriteElementString("ИндивидуальноеПотребление", Convert.ToString(wb.Worksheet(1).Row(t).Cell(13).Value).Trim());
+                                            myXml.WriteElementString("ОбщедомовыеНужды", Convert.ToString(wb.Worksheet(1).Row(t).Cell(17).Value).Trim());
                                             myXml.WriteEndElement();
                                             myXml.WriteElementString("ВсегоНачислено", Convert.ToString(wb.Worksheet(1).Row(t).Cell(18).Value).Trim());
-                                            myXml.WriteElementString("Перерасчеты", Convert.ToString(wb.Worksheet(1).Row(t).Cell(20).Value).Trim());
+                                            myXml.WriteElementString("Перерасчеты", Convert.ToString(wb.Worksheet(1).Row(t).Cell(22).Value).Trim());
                                             //myXml.WriteElementString("Льготы", Convert.ToString(wb.Worksheet(1).Row(t).Cell(18).Value).Trim());
                                             myXml.WriteStartElement("ИтогоКОплате");
-                                            myXml.WriteElementString("Всего", Convert.ToString(wb.Worksheet(1).Row(t).Cell(26).Value).Trim());
+                                            myXml.WriteElementString("Всего", Convert.ToString(wb.Worksheet(1).Row(t).Cell(25).Value).Trim());
                                             myXml.WriteStartElement("ЗаКоммунальныеУслуги");
-                                            myXml.WriteElementString("ИндивидуальноеПотребление", Convert.ToString(wb.Worksheet(1).Row(t).Cell(31).Value).Trim());
-                                            myXml.WriteElementString("ОбщедомовыеНужды", Convert.ToString(wb.Worksheet(1).Row(t).Cell(38).Value).Trim());
+                                            myXml.WriteElementString("ИндивидуальноеПотребление", Convert.ToString(wb.Worksheet(1).Row(t).Cell(29).Value).Trim());
+                                            myXml.WriteElementString("ОбщедомовыеНужды", Convert.ToString(wb.Worksheet(1).Row(t).Cell(32).Value).Trim());
                                             myXml.WriteEndElement();
                                             myXml.WriteEndElement();
                                             myXml.WriteEndElement();
                                         }
+                                        if (t <= i + 46)
+                                            t++;
                                     }
                                     myXml.WriteStartElement("ИтогоКОплате");
-                                    myXml.WriteElementString("РазмерПлатыИндивид", Convert.ToString(wb.Worksheet(1).Row(i + 47).Cell(12).Value).Trim());
-                                    myXml.WriteElementString("РазмерПлатыДом", Convert.ToString(wb.Worksheet(1).Row(i + 47).Cell(15).Value).Trim());
-                                    myXml.WriteElementString("ВсегоНачислено", Convert.ToString(wb.Worksheet(1).Row(i + 47).Cell(18).Value).Trim());
-                                    myXml.WriteElementString("Перерасчеты", Convert.ToString(wb.Worksheet(1).Row(i + 47).Cell(20).Value).Trim());
-                                    myXml.WriteElementString("Всего", Convert.ToString(wb.Worksheet(1).Row(i + 47).Cell(26).Value).Trim());
-                                    myXml.WriteElementString("ИтогоИндивид", Convert.ToString(wb.Worksheet(1).Row(i + 47).Cell(31).Value));
-                                    myXml.WriteElementString("ИтогоДом", Convert.ToString(wb.Worksheet(1).Row(i + 47).Cell(38).Value));
-                                    myXml.WriteElementString("Долг", Convert.ToString(wb.Worksheet(1).Row(i + 51).Cell(47).Value));
-                                    myXml.WriteElementString("Оплачено", Convert.ToString(wb.Worksheet(1).Row(i + 53).Cell(47).Value));
+                                    myXml.WriteElementString("РазмерПлатыИндивид", Convert.ToString(wb.Worksheet(1).Row(i + 51).Cell(13).Value).Trim());
+                                    myXml.WriteElementString("РазмерПлатыДом", Convert.ToString(wb.Worksheet(1).Row(i + 51).Cell(17).Value).Trim());
+                                    myXml.WriteElementString("ВсегоНачислено", Convert.ToString(wb.Worksheet(1).Row(i + 51).Cell(18).Value).Trim());
+                                    myXml.WriteElementString("Перерасчеты", Convert.ToString(wb.Worksheet(1).Row(i + 51).Cell(22).Value).Trim());
+                                    myXml.WriteElementString("Всего", Convert.ToString(wb.Worksheet(1).Row(i + 51).Cell(25).Value).Trim());
+                                    myXml.WriteElementString("ИтогоИндивид", Convert.ToString(wb.Worksheet(1).Row(i + 51).Cell(29).Value));
+                                    myXml.WriteElementString("ИтогоДом", Convert.ToString(wb.Worksheet(1).Row(i + 51).Cell(32).Value));
+                                    myXml.WriteElementString("Долг", Convert.ToString(wb.Worksheet(1).Row(i + 56).Cell(41).Value));
+                                    myXml.WriteElementString("Оплачено", Convert.ToString(wb.Worksheet(1).Row(i + 57).Cell(41).Value));
                                     myXml.WriteEndElement();
                                     myXml.WriteEndElement();
+
+                                    
+
                                     #endregion Рвздел3
 
                                     #region Раздел4
                                     myXml.WriteStartElement("Раздел4");
-                                    for (int r = i + 21; r <= i + 45; r++)
+                                    for (int r = i + 22; r <= i + 49; r++)
                                     {
                                         if (wb.Worksheet(1).Row(r).Cell(1).Value != null && Convert.ToString(wb.Worksheet(1).Row(r).Cell(1).Value).Trim() != "")
                                         {
@@ -984,19 +991,21 @@ namespace createFakturaXML
                                             string serv = Convert.ToString(wb.Worksheet(1).Row(r).Cell(1).Value).Trim();
                                             myXml.WriteElementString("ВидУслуги", serv);
                                             myXml.WriteStartElement("НормативПотребления");
-                                            myXml.WriteElementString("Индивидуальное", Convert.ToString(wb.Worksheet(1).Row(r).Cell(41).Value).Trim());
-                                            myXml.WriteElementString("Общедомовое", Convert.ToString(wb.Worksheet(1).Row(r).Cell(45).Value).Trim());
+                                            myXml.WriteElementString("Индивидуальное", Convert.ToString(wb.Worksheet(1).Row(r).Cell(35).Value).Trim());
+                                            myXml.WriteElementString("Общедомовое", Convert.ToString(wb.Worksheet(1).Row(r).Cell(38).Value).Trim());
                                             myXml.WriteEndElement();
                                             myXml.WriteStartElement("Показания");
-                                            myXml.WriteElementString("Индивидуальные", Convert.ToString(wb.Worksheet(1).Row(r).Cell(48).Value).Trim());
-                                            myXml.WriteElementString("Общедомовые", Convert.ToString(wb.Worksheet(1).Row(r).Cell(51).Value).Trim());
+                                            myXml.WriteElementString("Индивидуальные", Convert.ToString(wb.Worksheet(1).Row(r).Cell(40).Value).Trim());
+                                            myXml.WriteElementString("Общедомовые", Convert.ToString(wb.Worksheet(1).Row(r).Cell(43).Value).Trim());
                                             myXml.WriteEndElement();
                                             myXml.WriteStartElement("ОбъемКоммунальныхУслуг");
-                                            myXml.WriteElementString("ПомещенияДома", Convert.ToString(wb.Worksheet(1).Row(r).Cell(58).Value).Trim());
-                                            myXml.WriteElementString("ОбщедомовыеНуждыДома", Convert.ToString(wb.Worksheet(1).Row(r).Cell(61).Value).Trim());
+                                            myXml.WriteElementString("ПомещенияДома", Convert.ToString(wb.Worksheet(1).Row(r).Cell(48).Value).Trim());
+                                            myXml.WriteElementString("ОбщедомовыеНуждыДома", Convert.ToString(wb.Worksheet(1).Row(r).Cell(52).Value).Trim());
                                             myXml.WriteEndElement();
                                             myXml.WriteEndElement();
                                         }
+                                        if (r <= i + 46)
+                                            r++;
                                     }
                                     myXml.WriteEndElement();
                                     #endregion Рвздел4
@@ -1054,7 +1063,7 @@ namespace createFakturaXML
                                     #region Примечание
 
                                     //string t1 = Convert.ToString(wb.Worksheet(1).Row(i + 62).Cell(15).Value).Trim();
-                                    myXml.WriteElementString("Примечание", Convert.ToString(wb.Worksheet(1).Row(i + 67).Cell(17).Value).Trim());
+                                    myXml.WriteElementString("Примечание", Convert.ToString(wb.Worksheet(1).Row(i + 62).Cell(16).Value).Trim());
                                     #endregion Прмечание
                                 }
                             }
@@ -1109,6 +1118,11 @@ namespace createFakturaXML
                 // Notify the user that a file was not uploaded.
                 Label1.Text = "Необходимо загрузить фаил в формате .xlsx";
             }
+        }
+
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("http://85.140.61.250/GkhService/Service1.svc/GetDataCSV?token=f8f84d10cc6727b20becb7c5e85de047");
         }
     }
 }
